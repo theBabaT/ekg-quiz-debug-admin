@@ -6,7 +6,14 @@ import { v4 as uuidv4 } from 'uuid';
 const AdminPage = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [password, setPassword] = useState('');
-  const { sets, addSet, addQuestion } = useContext(QuestionContext);
+  let sets = [], addSet = () => {}, addQuestion = () => {};
+try {
+  const ctx = useContext(QuestionContext);
+  if (!ctx) throw new Error("Kein Kontext geladen!");
+  ({ sets, addSet, addQuestion } = ctx);
+} catch (e) {
+  return <pre>Fehler im Context: {e.message}</pre>;
+}
   const [selectedSet, setSelectedSet] = useState('');
   const [question, setQuestion] = useState({
     image: '',
