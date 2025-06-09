@@ -19,7 +19,7 @@ const AdminPage = () => {
   const uploadImage = async (file) => {
     try {
       const fileExt = file.name.split('.').pop();
-      const fileName = `${uuidv4()}.${fileExt}`;
+      const fileName = `${Date.now()}.${fileExt}`;
       const { data, error } = await supabase.storage.from('ekg-bilder').upload(fileName, file);
 
       if (error) {
